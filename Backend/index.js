@@ -1,5 +1,6 @@
 const express=require('express');
 const connectDB = require('./src/Database/db');
+const userrouter = require('./src/Controllers/user');
 const app=express();
 
 require('dotenv').config({
@@ -14,6 +15,7 @@ app.get('/',(req,res)=>{
 })
 
 
+app.use('/register', userrouter);
 app.listen(PORT,async()=>{
 
     try {
