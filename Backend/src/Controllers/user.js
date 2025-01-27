@@ -1,5 +1,6 @@
 const {Router}= require("express");
 const userModel = require("../Model/userModel");
+const {upload} = require("../../multer");
 
 const router = Router();
 
