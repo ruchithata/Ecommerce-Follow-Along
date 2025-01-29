@@ -12,10 +12,10 @@ const url=process.env.db_url;
 
 app.get('/',(req,res)=>{
     res.send('Hello World');
-})
+});
 
 
-app.use('/register', userrouter);
+app.use('/auth', userrouter);
 app.listen(PORT,async()=>{
 
     try {
