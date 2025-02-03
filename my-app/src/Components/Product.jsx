@@ -2,6 +2,7 @@ import React from 'react'
 
 
 
+
 export const Productcard = ({image,name,price,description}) => {
   return (
     <div className="bg-neutral-200 p-4 rounded-lg shadow-md flex justify-between flex-col">
