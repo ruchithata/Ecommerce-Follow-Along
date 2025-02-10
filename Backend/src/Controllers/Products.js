@@ -4,11 +4,37 @@ const { productupload } = require("../../multer");
 const productrouter = Router();
 
 
-productrouter.get("/", (req,res)=>{
-    res.send("Product Router");
+productrouter.get("/get-router", async (req,res)=>{
+    try {
+        const productfind = await productmodel.find();
+        console.log(productfind);
+
+        if (!productfind) {
+            return res.status(400).json({message: "No product found"});
+        }
+
+        const productimage = productfind.map((product) => {
+            return {
+                id: product._id,
+                name: product.name,
+                price: product.price,
+                description: product.description,
+                image: product.image,
+                category: product.category,
+                stock: product.stock,
+                tags: product.tags,
+                email: product.email,
+                createdAt: product.createdAt
+            };
+        });
+        return products;
+    }
+    catch(err){
+        console.log(err);
+    }
 });
 
-productrouter.post("/",productupload('files'), async(req,res)=>{
+productrouter.post("/post-product",productupload('files'), async(req,res)=>{
     const {name, price, description, category, stock, tags, email} = req.body;
     const image = req.file.map(file => file.path);
     try{

@@ -27,6 +27,7 @@ app.listen(PORT, async()=>{
 })
 
 
+app.use('/auth', userrouter);  
 app.use('/product', productrouter);
 
 
