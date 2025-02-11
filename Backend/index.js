@@ -4,6 +4,7 @@ const userrouter = require('./src/Controllers/user');
 const {get} = require('mongoose');
 const productrouter = require('./src/Controllers/Products');
 
+
 const app=express();
 
 require('dotenv').config({
@@ -30,8 +31,6 @@ app.listen(PORT, async()=>{
 app.use('/auth', userrouter);  
 app.use('/product', productrouter);
 
-
-app.get('/', (res,req)=>{
+app.get('/', (req, res) => {
     res.send('Product Router');
 });
-

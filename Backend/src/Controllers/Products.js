@@ -34,7 +34,7 @@ productrouter.get("/get-router", async (req,res)=>{
     }
 });
 
-productrouter.post("/post-product",productupload('files'), async(req,res)=>{
+productrouter.post("/post-product",productupload.array('files'), async(req,res)=>{
     const {name, price, description, category, stock, tags, email} = req.body;
     const image = req.file.map(file => file.path);
     try{
