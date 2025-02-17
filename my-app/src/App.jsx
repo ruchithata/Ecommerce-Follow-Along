@@ -4,6 +4,7 @@ import { Signup } from './Components/Signup'
 import { Home } from './page/Home'
 import {Productform} from './Components/Productform'
 import { Productcardseller } from './Components/productcardforseller'
+import Navbar from './Components/Navbar'
 
 function App() {
 
@@ -15,7 +16,8 @@ function App() {
       <Route path="/Signup" element={<Signup/>} />
       <Route path="/Productform" element={<Productform/>} />
       <Route path="/my-product" element={<Productcardseller/>}/>
-    </Routes>
+      <Route path='/navBar' element={<Navbar/>}/>
+   </Routes>
     </>
   )
 }

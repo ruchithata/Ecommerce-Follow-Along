@@ -4,14 +4,11 @@ const { productupload } = require("../../multer");
 const productrouter = Router();
 const path = require("path");
 
-
-productrouter.get("/get-router", async (req,res)=>{
+productrouter.get("/get-router", async (req, res) => {
     try {
         const productfind = await productmodel.find();
-        console.log(productfind);
-
         if (!productfind) {
-            return res.status(400).json({message: "No product found"});
+            return res.status(400).json({ message: "No product found" });
         }
 
         const productimage = productfind.map((product) => {
@@ -28,51 +25,47 @@ productrouter.get("/get-router", async (req,res)=>{
                 createdAt: product.createdAt
             };
         });
-        return products;
-    }
-    catch(err){
+        res.status(200).json(productimage);
+    } catch (err) {
         console.log(err);
+        res.status(500).json({ message: "Internal Server Error" });
     }
 });
 
-productrouter.post("/post-product",productupload.array('files'), async(req,res)=>{
-    const {name, price, description, category, stock, tags, email} = req.body;
-    const image = req.file.map(file => file.path);
-    try{
-        const seller = await productmodel.filename({email:email});
+productrouter.post("/post-product", productupload.array('files'), async (req, res) => {
+    const { name, price, description, category, stock, tags, email } = req.body;
+    const images = req.files.map(file => file.path);
+    try {
+        const seller = await productmodel.findOne({ email: email });
         if (!seller) {
-            return res.status(400).json({message: "Seller not found"});
+            return res.status(400).json({ message: "Seller not found" });
         }
 
         if (images.length === 0) {
-            return res.status(400).json({message: "Please upload atleast one image"});
+            return res.status(400).json({ message: "Please upload at least one image" });
         }
 
-        await productmodel.create({
-            name:name,
-            price:price,
-            description:description,
-            image:images,
-            category:category,
-            stock:stock,
-            tags:tags,
-            email:email
+        const newproduct = await productmodel.create({
+            name: name,
+            price: price,
+            description: description,
+            image: images,
+            category: category,
+            stock: stock,
+            tags: tags,
+            email: email
         });
 
-        
-
-    }
-    catch(error){
+        res.status(200).json({ message: "Product added successfully", product: newproduct });
+    } catch (error) {
         console.log(error);
+        res.status(500).json({ message: "Internal Server Error" });
     }
-    res.status(200).json({message:"Product added successfully"});
-
 });
 
 productrouter.put("/edit-product/:id", productupload.array('files', 10), async (req, res) => {
     try {
         const { id } = req.params;
-        console.log(id);
         const { name, description, category, tags, price, stock, email } = req.body;
         const existproduct = await productmodel.findById(id);
 
@@ -100,24 +93,25 @@ productrouter.put("/edit-product/:id", productupload.array('files', 10), async (
         res.status(200).json({ product: existproduct });
     } catch (err) {
         console.log('error in updating');
+        res.status(500).json({ message: "Internal Server Error" });
     }
 });
 
-productrouter.delete(`/delete-product`, async(req,res)=>{
-    try{
-        const {id} = req.params
-        const existproduct = await productmodel.finalById(id)
+productrouter.delete("/delete-product/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const existproduct = await productmodel.findById(id);
 
-        if(!existproduct){
-            res.status(400).json({message:"product does not exist"})
+        if (!existproduct) {
+            return res.status(400).json({ message: "Product does not exist" });
         }
 
-        await existproduct.deleteOne()
-
-    }catch(err){
-        console.log(`error in deleting`)
+        await existproduct.deleteOne();
+        res.status(200).json({ message: "Product deleted successfully" });
+    } catch (err) {
+        console.log('error in deleting');
+        res.status(500).json({ message: "Internal Server Error" });
     }
-})
-
+});
 
 module.exports = productrouter;
