@@ -3,6 +3,7 @@ const productmodel = require("../Model/ProductModel");
 const { productupload } = require("../../multer");
 const productrouter = Router();
 const path = require("path");
+const userModel = require("../Model/userModel");
 
 productrouter.get("/get-router", async (req, res) => {
     try {
@@ -31,6 +32,41 @@ productrouter.get("/get-router", async (req, res) => {
         res.status(500).json({ message: "Internal Server Error" });
     }
 });
+
+
+productrouter.post('.cart',async(req,res)=>{
+    const {email,productid,productname,quantity}=req.body
+
+    try{
+        if(!email){
+            return res.status(404).json({"fill all inputbox"})
+        }
+        const findmail = await userModel.findOne({email:email})
+        if(!findemail){
+            return res.status(404).json({message:{'user does not exist'}})
+        }
+        if(!mongoose.types.objected.isvalid(productid)){
+            return res.status.json({message:'productis not there'})
+        }
+        if(!quantity && quantity<0){
+            return res.status(400).json({message:'you dont have neccessary quantity'})
+        }
+
+
+        const findproduct=await productmodel.findById(productid)
+        if(!findproduct){
+            return res.status(400).json({message:'product does not exist'})
+        }
+        const cartproduct=await userModel.cart.findIndex((i)=>{
+            return i.productid===productid
+        })
+        
+    }
+    catch(err){
+        console.log("error in cart")
+    }
+})
+
 
 productrouter.post("/post-product", productupload.array('files'), async (req, res) => {
     const { name, price, description, category, stock, tags, email } = req.body;

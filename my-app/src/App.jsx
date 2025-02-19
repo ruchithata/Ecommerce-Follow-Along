@@ -3,8 +3,8 @@ import { Login } from './Components/Login'
 import { Signup } from './Components/Signup'
 import { Home } from './page/Home'
 import {Productform} from './Components/Productform'
-import { Productcardseller } from './Components/productcardforseller'
-import Navbar from './Components/Navbar'
+// import { Productcardseller } from './Components/productcardforseller'
+// import Navbar from './Components/Navbar'
 import Singlecard from './Components/Singlecard'
 
 function App() {
