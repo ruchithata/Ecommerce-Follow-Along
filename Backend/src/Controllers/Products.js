@@ -39,11 +39,11 @@ productrouter.post('.cart',async(req,res)=>{
 
     try{
         if(!email){
-            return res.status(404).json({"fill all inputbox"})
+            return res.status(404).json("fill all inputbox")
         }
         const findmail = await userModel.findOne({email:email})
         if(!findemail){
-            return res.status(404).json({message:{'user does not exist'}})
+            return res.status(404).json({message:'user does not exist'})
         }
         if(!mongoose.types.objected.isvalid(productid)){
             return res.status.json({message:'productis not there'})
@@ -69,6 +69,30 @@ productrouter.post('.cart',async(req,res)=>{
     }
     catch(err){
         console.log("error in cart")
+    }
+})
+
+
+productrouter.get('/getcart',async(req,res)=>{
+    try{
+        const {email}=req.body
+        if(!email){
+            return res.status(400).json({message:"user does not exist"})
+        }
+        const user=await userModel.findOne({email:email}).populat({
+            path:cart.productid,
+            model:productmodel
+        })
+
+        if(!user){
+            return res.status(400).json({message:"user does not exist"})
+        }
+
+        return res.status(400).json({message:"Cart is shown successfully"})
+
+    }
+    catch (err){
+        console.log("error in cart for get req")
     }
 })
 
