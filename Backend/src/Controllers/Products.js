@@ -51,16 +51,21 @@ productrouter.post('.cart',async(req,res)=>{
         if(!quantity && quantity<0){
             return res.status(400).json({message:'you dont have neccessary quantity'})
         }
-
-
         const findproduct=await productmodel.findById(productid)
         if(!findproduct){
             return res.status(400).json({message:'product does not exist'})
         }
-        const cartproduct=await userModel.cart.findIndex((i)=>{
+        const cartproduct=await findemail.cart.findIndex((i)=>{
             return i.productid===productid
         })
-        
+        if(cartproductid>-1){
+            findemail.cart[cartproductid].quantity+=quantity
+        }
+        else{
+            findemail.cart.push({productid,productname,quantity})
+        }
+
+
     }
     catch(err){
         console.log("error in cart")
