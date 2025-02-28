@@ -56,3 +56,15 @@ In this milestone, we built the cart page for our e-commerce app.
 - Added + and - buttons to increase and decrease product quantity.  
 - Created backend endpoints to handle quantity updates.  
 - Connected frontend buttons with the backend API for real-time updates.
+
+---
+
+# Milestone 20 - User Profile Endpoint 
+
+## Overview
+- Implemented the `/profile` endpoint to fetch user data and store it in an object. 
+- Created `profile.jsx` to dynamically display all user details.  
+- Ensured proper data handling and integration between frontend and backend.  
+- Planned future improvements like profile editing, authentication, and UI enhancements.  
+
+---
