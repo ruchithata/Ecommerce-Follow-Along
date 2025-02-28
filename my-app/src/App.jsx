@@ -3,21 +3,22 @@ import { Login } from './Components/Login'
 import { Signup } from './Components/Signup'
 import { Home } from './page/Home'
 import {Productform} from './Components/Productform'
-// import { Productcardseller } from './Components/productcardforseller'
-// import Navbar from './Components/Navbar'
-import Singlecard from './Components/Singlecard'
+import {Singlecard} from './Components/Singlecard'
+import Cart from './page/cart'
 
 function App() {
 
   return (
     <>
+    <div>
+      <Login/>
+    </div>
     <Routes>
       <Route path="/" element={<Home/>} />
       <Route path="/Login" element={<Login/>} />
       <Route path="/Signup" element={<Signup/>} />
+      <Route path="/cart" element={<Cart/>} />
       <Route path="/Productform" element={<Productform/>} />
-      {/* <Route path="/my-product" element={<Productcardseller/>}/>
-      <Route path='/navBar' element={<Navbar/>}/> */}
       <Route path='/product/:id' element={<Singlecard/>}/>
    </Routes>
     </>

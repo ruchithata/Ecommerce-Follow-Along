@@ -46,3 +46,13 @@ In this milestone, we introduced the foundations of building a full-stack e-comm
 - **Order Management**:
   - Create, update, and view customer orders.
 
+
+
+
+# Milestone 19: Cart Page & Quantity Management
+
+In this milestone, we built the cart page for our e-commerce app.  
+- Displayed products inside the cart using the existing backend API.  
+- Added + and - buttons to increase and decrease product quantity.  
+- Created backend endpoints to handle quantity updates.  
+- Connected frontend buttons with the backend API for real-time updates.

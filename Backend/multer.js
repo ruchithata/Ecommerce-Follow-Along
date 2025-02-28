@@ -12,7 +12,7 @@ const storage = multer.diskStorage({
        const filename = file.originalname.split(".")[0];
        cb(null,filename + "-" + uniqueSuffix + ".png"); // Define
     },
-  });
+  }); 
 
   const productstorage = multer.diskStorage({
     destination: (req, file, cb) => {
