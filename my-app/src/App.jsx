@@ -5,6 +5,7 @@ import { Home } from './page/Home'
 import {Productform} from './Components/Productform'
 import {Singlecard} from './Components/Singlecard'
 import Cart from './page/cart'
+import CreateAddress from './Components/Address'
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
       <Route path="/cart" element={<Cart/>} />
       <Route path="/Productform" element={<Productform/>} />
       <Route path='/product/:id' element={<Singlecard/>}/>
+      <Route path='/address' element={<CreateAddress/>}/>
    </Routes>
     </>
   )
