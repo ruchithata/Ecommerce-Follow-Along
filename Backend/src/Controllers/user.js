@@ -4,6 +4,7 @@ const { upload } = require("../../multer");
 const {bcrypt} = require("bcrypt");
 const userrouter = Router();
 const jwt = require("jsonwebtoken");
+const auth = require("../Middleware/auth");
 require("dotenv").config({ path: "./src/config/.env" });
 
 const secret = process.env.private_key;
@@ -50,6 +51,7 @@ userrouter.post("/login", async(req,res)=>{
           if (err) {
             return res.status(400).json({message: "Invalid jwt"});
           }
+          res.setHeader("Autherization", `Bearer ${token}`);
           console.log(token);
           res.status(200).json({token:token});
         })
@@ -61,6 +63,24 @@ userrouter.post("/login", async(req,res)=>{
       } 
     })
 
+});
+
+
+
+
+userrouter.post('/add-address', auth, async (req, res) => {
+    const { address, city, state, zip, country } = req.body;
+    try {
+        if (!address || !city || !state || !zip || !country) {
+            return res.status(400).json({ message: "Fill all fields" });
+        }
+        const addressDetails = new userModel({ address, city, state, zip, country });
+        await addressDetails.save();
+        res.status(200).json({ message: "Address added successfully" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
 });
 
 module.exports = userrouter;
