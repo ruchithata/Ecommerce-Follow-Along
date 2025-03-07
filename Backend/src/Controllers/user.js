@@ -68,19 +68,74 @@ userrouter.post("/login", async(req,res)=>{
 
 
 
-userrouter.post('/add-address', auth, async (req, res) => {
-    const { address, city, state, zip, country } = req.body;
-    try {
-        if (!address || !city || !state || !zip || !country) {
-            return res.status(400).json({ message: "Fill all fields" });
-        }
-        const addressDetails = new userModel({ address, city, state, zip, country });
-        await addressDetails.save();
-        res.status(200).json({ message: "Address added successfully" });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Internal Server Error" });
-    }
+// userrouter.post('/add-address', auth, async (req, res) => {
+//     const {
+//       country,
+//       city,
+//       address1,
+//       address2,
+//       zipCode,
+//       addressType,email
+//     } = req.body;
+//     try {
+//         if (!address || !city || !state || !zip || !country) {
+//             return res.status(400).json({ message: "Fill all fields" });
+//         }
+//         const addressDetails = new userModel({ address, city, state, zip, country });
+//         await addressDetails.save();
+//         res.status(200).json({ message: "Address added successfully" });
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ message: "Internal Server Error" });
+//     }
+// });
+
+
+
+userrouter.post('/add-address',auth, async(req,res)=>{
+
+  try{
+    const email = req.body;
+    const {country,
+      city,
+      address1,
+      address2,
+      zipCode,
+      addressType}=req.body
+
+      const user=await userModel.find({email:email})
+
+    const newaddress={
+      country,
+      city,
+      address1,
+      address2,
+      zipCode,
+      addressType,
+  }
+
+  user.addresses.push(newaddress)
+  await user.save()
+}
+catch(err){
+  console.log("error in address",err)
+}
 });
+
+
+userrouter.get('/get-address', auth,async(req,res)=>{ 
+  const email = req.user
+  try{
+    const user = await userModel.findOne({email:email})
+    if(!user){
+      return res.status(400).json({message: "user not found"});
+    }
+    res.status(200).json({message: "successfully recieved.",user:user.addresses});
+  }
+  catch(err){
+    console.log("error in getting address.",err);
+  }
+})
+
 
 module.exports = userrouter;

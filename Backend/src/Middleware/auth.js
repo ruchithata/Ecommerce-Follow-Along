@@ -9,11 +9,13 @@ const auth = async(req,res,next)=> {
     const token = tokenauth.split(" ")[1]   
     const secret = process.env.private_key;
 
-    jwt.verify(token, secret, function(err,dacoded){
+    jwt.verify(token, secret, function(err,decoded){
         if(err){
             console.log("error in auth middleware",err);
         }
         else{
+            const finduser = decoded.email
+            req.user = finduser
             next()
         }
     });

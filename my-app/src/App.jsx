@@ -6,6 +6,7 @@ import {Productform} from './Components/Productform'
 import {Singlecard} from './Components/Singlecard'
 import Cart from './page/cart'
 import CreateAddress from './Components/Address'
+import SelectAddress from './page/Selectaddress'
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
       <Route path="/Productform" element={<Productform/>} />
       <Route path='/product/:id' element={<Singlecard/>}/>
       <Route path='/address' element={<CreateAddress/>}/>
+      <Route path='/select-address' element={<SelectAddress/>}/>
    </Routes>
     </>
   )
