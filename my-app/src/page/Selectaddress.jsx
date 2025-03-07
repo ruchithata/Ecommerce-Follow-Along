@@ -1,78 +1,71 @@
-// import React, { useEffect, useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
-
-// const Selectaddress = () => {
-//     const [addresses, setAddresses] = useState([]);
-//     const [error, setError] = useState(null);
-//     const navigate = useNavigate();
-
-//     useEffect(()=>{
-//         const fetchAddresses = async () => {
-//             try {
-//                 const response = await fetch('http://localhost:3000/api/addresses');
-
-//             }
-//             catch(err){
-//                 console.log("error getting address in frontend.",err);
-//             }
-//     })
-//   return (
-//     <div>
-      
-//     </div>
-//   );
-// }
-
-// export default Selectaddress;
-
-
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const SelectAddress = () => {
     const [addresses, setAddresses] = useState([]);
-    const [selectedAddress, setSelectedAddress] = useState(null);
+    const [error, setError] = useState(null); 
+    const navigate = useNavigate();
 
     useEffect(() => {
-        fetch('http://localhost:3000/user/addresses')
-            .then(res => res.json())
-            .then(data => setAddresses(data.addresses))
-            .catch(err => console.error('Error fetching addresses:', err));
+        const fetchAddresses = async () => {
+            try {
+                const response = await axios.get('http://localhost:3000/user/get-address');
+                
+                const data = response.data;
+                if (data && Array.isArray(data.addresses)) {
+                    setAddresses(data.addresses);
+                } else {
+                    setAddresses([]);
+                    console.warn('Unexpected response structure:', data);
+                }
+            } catch (err) {
+                console.error('Error fetching addresses:', err);
+                setError(err.response?.data?.message || err.message || 'An unexpected error occurred.');
+            }
+        };
+        fetchAddresses();
     }, []);
 
-    const handleSelect = (addressId) => {
-        setSelectedAddress(addressId);
-    };
-
-    const handleConfirm = () => {
-        if (selectedAddress) {
-            console.log('Selected address:', selectedAddress);
-        } else {
-            alert('Please select an address');
-        }
+    const handleSelectAddress = (addressId) => {
+        navigate('/order-confirmation');
     };
 
     return (
-        <div className='w-full h-screen flex justify-center items-center'>
-            <div className='w-full md:w-4/5 lg:w-4/6 2xl:w-2/3 h-full border-l border-r border-neutral-300 flex flex-col'>
-                <h1 className='text-2xl font-semibold text-center my-4'>Select Delivery Address</h1>
-                <div className='flex-grow overflow-auto px-3 py-2 gap-y-2'>
-                    {addresses.map(address => (
-                        <div 
-                            key={address._id} 
-                            className={`p-4 border rounded-lg mb-2 cursor-pointer ${selectedAddress === address._id ? 'bg-blue-100' : ''}`}
-                            onClick={() => handleSelect(address._id)}
-                        >
-                            <p>{address.street}, {address.city}, {address.state} - {address.zip}</p>
+        <div className='w-full min-h-screen flex flex-col'>
+            <div className='flex-grow flex justify-center items-center p-4'>
+                <div className='w-full max-w-4xl border border-neutral-300 rounded-md flex flex-col p-6 bg-white shadow-md'>
+                    <h2 className='text-2xl font-semibold mb-6 text-center'>Select Shipping Address</h2>
+                    
+                    {error && <p className='text-red-500 text-center'>{error}</p>} {/* 🔹 Display error */}
+
+                    {addresses.length > 0 ? (
+                        <div className='space-y-4 overflow-auto max-h-96'>
+                            {addresses.map((address) => (
+                                <div
+                                    key={address._id}
+                                    className='border p-4 rounded-md flex justify-between items-center hover:shadow-md transition-shadow'
+                                >
+                                    <div>
+                                        <p className='font-medium'>
+                                            {address.address1}
+                                            {address.address2 ? `, ${address.address2} `: ''}, {address.city}, {address.state}, {address.zipCode}
+                                        </p>
+                                        <p className='text-sm text-gray-600'>{address.country}</p>
+                                        <p className='text-sm text-gray-500'>Type: {address.addressType || 'N/A'}</p>
+                                    </div>
+                                    <button
+                                        onClick={() => handleSelectAddress(address._id)}
+                                        className='bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400'
+                                    >
+                                        Select
+                                    </button>
+                                </div>
+                            ))}
                         </div>
-                    ))}
-                </div>
-                <div className='w-full p-4 flex justify-end'>
-                    <button 
-                        onClick={handleConfirm} 
-                        className='bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600'
-                    >
-                        Confirm Address
-                    </button>
+                    ) : (
+                        <p className='text-center text-gray-700'>No addresses found. Please add an address.</p>
+                    )}
                 </div>
             </div>
         </div>
