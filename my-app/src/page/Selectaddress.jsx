@@ -28,7 +28,7 @@ const SelectAddress = () => {
     }, []);
 
     const handleSelectAddress = (addressId) => {
-        navigate('/order-confirmation');
+        navigate('/order-confirmation',{state:{addressId,email:email}});
     };
 
     return (

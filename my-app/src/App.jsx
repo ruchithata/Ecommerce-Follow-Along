@@ -7,6 +7,7 @@ import {Singlecard} from './Components/Singlecard'
 import Cart from './page/cart'
 import CreateAddress from './Components/Address'
 import SelectAddress from './page/Selectaddress'
+import OrderConfirmation from './page/orderConfirmation'
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
       <Route path='/product/:id' element={<Singlecard/>}/>
       <Route path='/address' element={<CreateAddress/>}/>
       <Route path='/select-address' element={<SelectAddress/>}/>
+      <Route path='/orderconfirmation' element={<OrderConfirmation/>}/>
    </Routes>
     </>
   )
