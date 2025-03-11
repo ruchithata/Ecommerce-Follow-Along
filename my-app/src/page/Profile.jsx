@@ -81,7 +81,7 @@ export default function Profile() {
             </div>
           ) : (
             addresses.map((address, index) => (
-              <AddressCard key={index} {...address} />
+              <Address key={index} {...address} />
             ))
           )}
         </div>
