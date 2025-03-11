@@ -1,6 +1,14 @@
 const express=require('express');
 const connectDB = require('./src/Database/db');
+const cors = require('cors');
+const userrouter = require('./src/Controllers/user');
+const {get} = require('mongoose');
+const productrouter = require('./src/Controllers/Products');
+
+
 const app=express();
+app.use(express.json());
+app.use(cors()); 
 
 require('dotenv').config({
     path:'./src/config/.env'
@@ -9,12 +17,9 @@ require('dotenv').config({
 const PORT=process.env.port || 5000;
 const url=process.env.db_url;
 
-app.get('/',(req,res)=>{
-    res.send('Hello World');
-})
 
-
-app.listen(PORT,async()=>{
+app.use('/auth', userrouter);   
+app.listen(PORT, async()=>{
 
     try {
         await connectDB(url);
@@ -23,4 +28,12 @@ app.listen(PORT,async()=>{
     catch(err){
         console.log(err);
     }
+})
+
+
+app.use('/auth', userrouter);  
+app.use('/product', productrouter);
+
+app.get('/', (req, res) => {
+    res.send('Product Router');
 });
