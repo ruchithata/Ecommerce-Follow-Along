@@ -23,3 +23,5 @@ profileRouter.get("/profile", async (req, res) => {
         console.log("error in profile",err);
     }
 });
+
+module.exports = profileRouter;

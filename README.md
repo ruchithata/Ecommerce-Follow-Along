@@ -229,3 +229,9 @@ Place Order Button: Implemented a final confirmation button to place the order, 
 - Used the email to retrieve the corresponding user _id.
 - Queried the database to fetch all orders associated with that user.
 - Returned the user's order history in the response.
+
+---
+
+## *Milestone 27: My Orders Page*
+
+We created a "My Orders" page for the frontend of the Ecommerce-Follow-Along project. This page displays all the orders placed by the user.
