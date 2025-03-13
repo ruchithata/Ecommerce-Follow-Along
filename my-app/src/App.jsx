@@ -8,6 +8,7 @@ import Cart from './page/cart'
 import CreateAddress from './Components/Address'
 import SelectAddress from './page/Selectaddress'
 import OrderConfirmation from './page/orderConfirmation'
+import MyOrdersPage from './page/MyOrders.jsx'
 
 function App() {
 
