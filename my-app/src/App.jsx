@@ -9,6 +9,8 @@ import CreateAddress from './Components/Address'
 import SelectAddress from './page/Selectaddress'
 import OrderConfirmation from './page/orderConfirmation'
 
+
+
 function App() {
 
   return (
@@ -26,6 +28,7 @@ function App() {
       <Route path='/address' element={<CreateAddress/>}/>
       <Route path='/select-address' element={<SelectAddress/>}/>
       <Route path='/orderconfirmation' element={<OrderConfirmation/>}/>
+      
    </Routes>
     </>
   )
