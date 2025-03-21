@@ -1,5 +1,6 @@
 import { Router } from "express";
 import userModel from "../Model/userModel";
+import rolemiddleware from "../Middleware/role";
 
 const orderRouter = Router();
 
@@ -68,7 +69,7 @@ orderRouter.get('/getorder', auth, async(req,res)=>{
 });
 
 
-orderRouter.patch('/cancel-order/:orderId', auth, async (req, res) => {
+orderRouter.patch('/cancel-order/:orderId', auth, rolemiddleware, async (req, res) => {
     try {
         const { orderId } = req.params;
         const order = await orderModel.findById(orderId);
