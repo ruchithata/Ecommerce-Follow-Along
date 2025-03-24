@@ -68,3 +68,10 @@ In this milestone, we built the cart page for our e-commerce app.
 - Planned future improvements like profile editing, authentication, and UI enhancements.  
 
 ---
+
+## *Milestone 22: Address Data Handling*
+
+Backend Endpoint: Created an endpoint to receive and store address data from the frontend.
+JWT Authentication: Implemented JSON Web Tokens to authenticate address submissions securely.
+
+---
