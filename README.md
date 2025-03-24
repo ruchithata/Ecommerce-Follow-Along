@@ -68,3 +68,10 @@ In this milestone, we built the cart page for our e-commerce app.
 - Planned future improvements like profile editing, authentication, and UI enhancements.  
 
 ---
+
+## *Milestone 24: Order Summary and Confirmation*
+
+Order Summary: Displayed all products included in the order along with selected delivery address and total cart value.
+Place Order Button: Implemented a final confirmation button to place the order, completing the purchase process.
+
+---
