@@ -68,3 +68,11 @@ In this milestone, we built the cart page for our e-commerce app.
 - Planned future improvements like profile editing, authentication, and UI enhancements.  
 
 ---
+
+## *Milestone 23: Order Placement Workflow*
+
+Place Order Button: Added functionality in the cart page to initiate the order placement process.
+Select Address Page: Developed a page displaying all user addresses with an option to select a delivery address.
+Address Retrieval: Created a backend endpoint to fetch all addresses associated with a user.
+
+---
