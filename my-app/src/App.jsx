@@ -1,35 +1,37 @@
+import './App.css'
 import { Route, Routes } from 'react-router-dom'
-import { Login } from './Components/Login'
-import { Signup } from './Components/Signup'
+import { Login } from './Component/Login'
+import { Signup } from './Component/Signup'
 import { Home } from './page/Home'
-import {Productform} from './Components/Productform'
-import {Singlecard} from './Components/Singlecard'
+import Navbar from './Component/Navbar'
+import Singlecard from './Component/Singlecard'
+import Productform from './Component/Productform'
 import Cart from './page/cart'
-import CreateAddress from './Components/Address'
-import SelectAddress from './page/Selectaddress'
-import OrderConfirmation from './page/orderConfirmation'
-
+import SelectAddress from './page/selectaddress'
+import OrderConfirmation from './page/Oderconfirmation'
+import PrivateRouter from './Router/PrivateRouter'
 
 
 function App() {
+  
 
   return (
     <>
-    <div>
-      <Login/>
-    </div>
-    <Routes>
-      <Route path="/" element={<Home/>} />
-      <Route path="/Login" element={<Login/>} />
-      <Route path="/Signup" element={<Signup/>} />
-      <Route path="/cart" element={<Cart/>} />
-      <Route path="/Productform" element={<Productform/>} />
-      <Route path='/product/:id' element={<Singlecard/>}/>
-      <Route path='/address' element={<CreateAddress/>}/>
-      <Route path='/select-address' element={<SelectAddress/>}/>
-      <Route path='/orderconfirmation' element={<OrderConfirmation/>}/>
-      
-   </Routes>
+    <Navbar/>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path='/cart'  element={<Cart/>}/>
+        <Route path="/productform" element={
+          <PrivateRouter>
+          <Productform />
+          </PrivateRouter>} />
+       <Route path='/product/:id' element={<Singlecard/>}/>
+       <Route path='/selectaddress' element={<SelectAddress/>}/>  
+       <Route path='/orderconfirmation' element={<OrderConfirmation/>}/>
+       <Route path='*' element={<h1>Not Found</h1>}/> 
+      </Routes>
     </>
   )
 }
