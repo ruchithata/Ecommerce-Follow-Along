@@ -235,3 +235,29 @@ Place Order Button: Implemented a final confirmation button to place the order, 
 ## *Milestone 27: My Orders Page*
 
 We created a "My Orders" page for the frontend of the Ecommerce-Follow-Along project. This page displays all the orders placed by the user.
+
+---
+
+## *Milestone 28: Cancel Order Functionality*
+
+- Added a backend endpoint to cancel orders by updating their status to Cancelled in MongoDB.
+- Updated the My Orders page with a "Cancel Order" button that sends a PATCH request.
+- Dynamically displays the order status and hides the button for already cancelled orders.
+
+---
+
+## *Milestone 29 - PayPal Integration*
+
+In this milestone, we added an online payment option using the PayPal API. Users can now choose between COD and PayPal for payment. PayPal buttons will be displayed when the online payment option is selected. The next milestone will focus on implementing the payment functionality.
+
+---
+
+## *Milestone 30 - Payment Functionality*
+
+Implemented PayPal API for online payments.
+Installed react-paypal-js and integrated PayPalScriptProvider.
+Configured PayPal sandbox client ID for testing transactions.
+Added PayPal payment buttons in the order confirmation page.
+Pushed the updated code to GitHub. 
+
+---
