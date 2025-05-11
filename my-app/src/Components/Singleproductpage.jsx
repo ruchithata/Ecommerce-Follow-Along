@@ -15,7 +15,7 @@ const Singleproductpage = () => {
 
     const addcart = async(email,productid,productname,quantity)=>{
         try{
-            await axios.post(`http//localhost:3000/cart`,
+            const response = await axios.post(`http//localhost:3000/cart`,
             {
                 email:email,
                 productid:productid,
