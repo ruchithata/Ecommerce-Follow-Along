@@ -34,7 +34,7 @@ productrouter.get("/get-router", async (req, res) => {
 });
 
 
-productrouter.post('.cart',async(req,res)=>{
+productrouter.post('/cart',async(req,res)=>{
     const {email,productid,productname,quantity}=req.body
 
     try{
